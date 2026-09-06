@@ -1,0 +1,60 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Jupyter & IDE
+.ipynb_checkpoints
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project Data & Checkpoints (Large files)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/splits/*
+!data/splits/.gitkeep
+*.pth
+*.pt
+*.pkl
+*.joblib
+*.h5
+*.onnx
+
+# Results, logs, and artifacts
+results/*
+!results/.gitkeep
+reports/*
+!reports/.gitkeep
+logs/
+*.log
+
+# Environment variables & secrets
+.env
+.env.local

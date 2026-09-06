@@ -1,0 +1,75 @@
+# Wafer Map Pattern Intelligence Configuration
+
+project:
+  name: "Image-Based Wafer Map Pattern Intelligence"
+  seed: 42
+  device: "auto"  # 'cuda', 'cpu', or 'auto'
+
+dataset:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  splits_dir: "data/splits"
+  image_size: [128, 128] # [H, W] normalized wafer resolution
+  split_ratios:
+    train: 0.70
+    val: 0.15
+    test: 0.15
+  # Supported canonical pattern classes (aligned with dataset availability)
+  classes:
+    - "Normal"
+    - "Center"
+    - "Donut"
+    - "Edge"
+    - "Ring"
+    - "Localized_Cluster"
+    - "Scratch"
+    - "Random"
+    - "Mixed"
+
+preprocessing:
+  validation:
+    min_resolution: [32, 32]
+    max_aspect_ratio_diff: 0.25 # wafer images should be roughly square
+    allowed_extensions: [".png", ".jpg", ".jpeg", ".bmp", ".npy", ".pkl"]
+  disk_detection:
+    method: "hough_circle" # or "contour_bounding"
+    dp: 1.2
+    min_dist: 50
+  defect_segmentation:
+    method: "adaptive_otsu"
+    morph_kernel_size: 3
+    min_defect_area_pixels: 2
+
+spatial_features:
+  radial_bins: 8 # Number of concentric annular rings from center to circumference
+  angular_bins: 12 # Number of angular sectors (clock slices: 30 deg each)
+  cluster_eps: 5.0 # DBSCAN neighborhood epsilon for localized clusters
+  min_samples: 3
+
+models:
+  classical:
+    type: "RandomForest"
+    n_estimators: 100
+    max_depth: 12
+    random_state: 42
+  deep_learning:
+    architecture: "WaferNet_Light" # Lightweight CNN
+    num_classes: 9
+    learning_rate: 0.001
+    batch_size: 32
+    epochs: 30
+    weight_decay: 0.0001
+  hybrid:
+    agreement_threshold: 0.65
+    uncertainty_confidence_cutoff: 0.55
+    flag_label: "UNCERTAIN / NEEDS REVIEW"
+
+explainability:
+  gradcam_target_layer: "features.conv3"
+  top_spatial_reasons: 4
+
+dashboard:
+  title: "Wafer Map Pattern Intelligence"
+  theme: "dark"
+  enable_gradcam: true
+  enable_spatial_breakdown: true
