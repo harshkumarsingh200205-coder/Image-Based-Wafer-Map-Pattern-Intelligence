@@ -1,0 +1,17 @@
+{
+  "include": [
+    "src",
+    "app",
+    "tests"
+  ],
+  "venvPath": ".",
+  "venv": ".venv",
+  "extraPaths": [
+    ".",
+    "src",
+    ".venv/Lib/site-packages"
+  ],
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false,
+  "pythonVersion": "3.13"
+}
