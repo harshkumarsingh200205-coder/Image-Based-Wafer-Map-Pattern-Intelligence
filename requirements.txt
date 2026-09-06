@@ -17,6 +17,7 @@ grad-cam>=1.4.8
 
 # Interactive Dashboard & Web
 streamlit>=1.28.0
+plotly>=5.18.0
 
 # Configuration & Utilities
 pyyaml>=6.0

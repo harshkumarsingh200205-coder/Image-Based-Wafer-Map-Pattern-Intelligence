@@ -52,6 +52,7 @@ results/*
 !results/.gitkeep
 reports/*
 !reports/.gitkeep
+!reports/*.png
 logs/
 *.log
 
