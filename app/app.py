@@ -235,7 +235,7 @@ with st.sidebar.expander("⚙️ Advanced Vision Parameters", expanded=False):
 
 if input_mode == "Synthetic Pattern Generator":
     selected_pattern = st.sidebar.selectbox("Select Primary Defect Pattern", CLASSES, index=1)
-    pattern_name = selected_pattern
+    pattern_name = selected_pattern or "Center"
     noise = st.sidebar.slider("Background Defect Noise Level", 0.0, 0.12, 0.02, step=0.01)
     seed = st.sidebar.number_input("Reproducibility Seed", min_value=0, max_value=9999, value=42)
     
@@ -321,7 +321,7 @@ with main_tab:
             ml_probs[CLASSES.index("Center")] = 0.87
         elif c_to_e < 0.38:
             ml_probs[CLASSES.index("Edge")] = 0.85
-        elif "Donut" in pattern_name or (0.35 <= c_to_e <= 1.2 and spatial_features.get("radial_density_std", 0) > 0.05):
+        elif (pattern_name is not None and "Donut" in pattern_name) or (0.35 <= c_to_e <= 1.2 and spatial_features.get("radial_density_std", 0) > 0.05):
             ml_probs[CLASSES.index("Donut")] = 0.78
         else:
             ml_probs[CLASSES.index("Ring")] = 0.72
@@ -493,7 +493,7 @@ with main_tab:
             audit_dict = {
                 "decision": decision,
                 "diagnostics": diag,
-                "spatial_features": {k: float(v) for k, v in spatial_features.items()},
+                "spatial_features": dict(spatial_features),
                 "rationale": reasons,
             }
             json_str = json.dumps(audit_dict, indent=2)

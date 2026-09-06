@@ -12,12 +12,12 @@ Generates mathematically controlled wafer maps across canonical failure patterns
 - Mixed
 """
 
-from typing import Tuple
+from typing import Optional, Tuple
 import numpy as np
 
 
 def generate_synthetic_wafer(
-    pattern: str = "Center",
+    pattern: Optional[str] = "Center",
     size: Tuple[int, int] = (128, 128),
     noise_level: float = 0.02,
     seed: int = 42,
@@ -42,7 +42,7 @@ def generate_synthetic_wafer(
     wafer_mask = dist_from_center <= radius
     wafer[wafer_mask] = 1
 
-    pattern_clean = pattern.strip().lower()
+    pattern_clean = (pattern or "Center").strip().lower()
 
     if pattern_clean == "normal":
         pass  # Just nominal random noise added below

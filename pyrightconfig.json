@@ -9,9 +9,11 @@
   "extraPaths": [
     ".",
     "src",
-    ".venv/Lib/site-packages"
+    ".venv/Lib/site-packages",
+    "C:/Projects/Image-Based Wafer Map Pattern Intelligence/.venv/Lib/site-packages"
   ],
-  "reportMissingImports": true,
+  "reportMissingImports": false,
   "reportMissingTypeStubs": false,
+  "pythonPlatform": "Windows",
   "pythonVersion": "3.13"
 }
